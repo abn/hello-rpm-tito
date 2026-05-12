@@ -1,47 +1,27 @@
 Name:     hello
 Version:  2.10
-Release:  1%{?dist}
-Summary:  The "Hello World" program from GNU
+Release:  2%{?dist}
+Summary:  A simple "Hello World" script for testing tito-based RPM builds
 License:  GPLv3+
-URL:      https://www.gnu.org/software/hello/
-Source0:  https://ftp.gnu.org/gnu/hello/hello-%{version}.tar.gz
+URL:      https://github.com/abn/hello-rpm-tito
 
-BuildRequires: make gcc gettext
-
-Requires(post): info
-Requires(preun): info
+BuildArch: noarch
 
 %description
-The "Hello World" program, done with all bells and whistles of a proper FOSS
-project, including configuration, build, internationalization, help files, etc.
+A simple "Hello World" shell script for testing tito-based RPM builds.
 
 %prep
-%autosetup
-
-%build
-%configure
-%make_build
+%setup -q
 
 %install
-rm -rf $RPM_BUILD_ROOT
-%make_install
-%find_lang %{name}
-rm -f %{buildroot}%{_infodir}/dir
+install -D -m 755 hello %{buildroot}%{_bindir}/hello
 
-%post
-/sbin/install-info %{_infodir}/%{name}.info %{_infodir}/dir || :
-
-%preun
-if [ $1 = 0 ] ; then
-/sbin/install-info --delete %{_infodir}/%{name}.info %{_infodir}/dir || :
-fi
-
-%files -f %{name}.lang
-%defattr(-,root,root)
+%files
 %{_bindir}/hello
-%{_infodir}/*
-%{_mandir}/man1/*
 
 %changelog
+* Mon May 12 2026 Arun Babu Neelicattu <arun.neelicattu@gmail.com> 2.10-2
+- Convert to noarch shell script for tito build compatibility
+
 * Tue Oct 24 2017 Arun Babu Neelicattu <arun.neelicattu@gmail.com> 2.10-1
 - Initial packaging
