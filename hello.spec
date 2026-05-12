@@ -4,6 +4,7 @@ Release:  2%{?dist}
 Summary:  A simple "Hello World" script for testing tito-based RPM builds
 License:  GPLv3+
 URL:      https://github.com/abn/hello-rpm-tito
+Source0:  %{name}-%{version}.tar.gz
 
 BuildArch: noarch
 
@@ -11,7 +12,7 @@ BuildArch: noarch
 A simple "Hello World" shell script for testing tito-based RPM builds.
 
 %prep
-%setup -q
+%autosetup
 
 %install
 install -D -m 755 hello %{buildroot}%{_bindir}/hello
