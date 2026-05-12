@@ -1,4 +1,4 @@
 [buildconfig]
 builder = tito.builder.Builder
-tagger = tito.tagger.VersionTagger
+tagger = tito.tagger.ReleaseTagger
 tag_suffix =
